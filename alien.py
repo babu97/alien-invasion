@@ -5,6 +5,8 @@ class Alien(Sprite):
         """Initialize the alien and set its starting position"""
         super().__init__()
         self.screen = ai_game.screen
+        self.setings = ai_game.settings
+
        
         # load the Alien image and get its rect.
 
@@ -18,3 +20,9 @@ class Alien(Sprite):
         #store a decimal value for the ship's horizontal positon.
         #movement flags
         self.x = float(self.rect.x)
+
+    def update(self):
+        """Move he alien to the right"""
+
+        self.x += self.settings.alien_speed
+        self.rect.x =self.x
