@@ -5,6 +5,7 @@ from ship import Ship
 from bullet import Bullet
 from alien import Alien
 
+
 class AlienInvasion:
     """Overall class to manage game assets and behaviors."""
     def __init__(self):
@@ -31,6 +32,10 @@ class AlienInvasion:
             self._update_bullets()
             self._update_screen()
             self. _update_aliens()
+            
+    def _update_aliens(self):
+        """Update the positions of all aliens in the fleet"""
+        self.aliens.update()
 
 
 

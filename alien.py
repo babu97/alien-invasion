@@ -21,8 +21,8 @@ class Alien(Sprite):
         #movement flags
         self.x = float(self.rect.x)
 
-    def update(self):
+    def  update(self):
         """Move he alien to the right"""
 
-        self.x += self.settings.alien_speed
+        self.x += self.setings.alien_speed
         self.rect.x =self.x
