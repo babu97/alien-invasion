@@ -34,6 +34,9 @@ class AlienInvasion:
             self. _update_aliens()
             
     def _update_aliens(self):
+        """check if the fleet is at the edge then update the positions of the all aliens  in the fleet
+        """
+        self._check_fleet_edges()
         """Update the positions of all aliens in the fleet"""
         self.aliens.update()
 
@@ -111,7 +114,23 @@ class AlienInvasion:
         alien.rect.x = alien.x
         alien.rect.y = alien.rect.height + 2* alien.rect.height * row_number
         self.aliens.add(alien)
+    def check_edge(self):
+        """Return true  if alien is at edge of screen"""
+        self.rect = self.screen.get_rect()
+        if self.rect.right >=self.screen.right or self.rect.left <= 0:
+            return True
 
+    def _check_fleet_edges(self):
+        """Respond appropriately if any aliens has reached  an edge"""
+        for alien in self.aliens.sprites():
+            if alien.check_edge():
+                self._change_fleet_direction()
+            break
+    def _change_fleet_direction(self):
+        """Drop the entire fleet and change fleet's direction"""
+        for alien in self.aliens.sprites():
+            alien.rect.y += self.settings.fleet_drop_speed
+        self.settings.fleet_direction *= -1
             
 
     def _update_screen(self):
