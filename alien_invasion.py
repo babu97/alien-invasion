@@ -15,7 +15,7 @@ class AlienInvasion:
         pygame.init()
         self.settings = Settings()
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
-        self.screen = pygame.display.set_mode((1200,800), pygame.FULLSCREEN)
+       # self.screen = pygame.display.set_mode((1200,800), pygame.FULLSCREEN)
         self.settings.screen_width = self.screen.get_rect().width
         self.settings.screen_height = self.screen.get_rect().height
         
@@ -31,13 +31,13 @@ class AlienInvasion:
     def run_game(self):
         """Start the main loop for the game."""
         while True:
-            self._check_events()
-        if self.stats.game_active:
-            self.ship.update()
-            self._update_bullets()
-            self. _update_aliens()
+          self._check_events()
+          if self.stats.game_active:
+                self.ship.update()
+                self._update_bullets()
+                self. _update_aliens()
             
-        self._update_screen()
+          self._update_screen()
             
     def _update_aliens(self):
         """check if the fleet is at the edge then update the positions of the all aliens  in the fleet
@@ -48,6 +48,8 @@ class AlienInvasion:
         #look for alien-ship collisions.
         if pygame.sprite.spritecollideany(self.ship,self.aliens):
             self._ship_hit()
+        #look for aliens hittinh the bottom of the screeb
+        self._check_aliens_bottom()
 
 
 
@@ -56,6 +58,7 @@ class AlienInvasion:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
+
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
             elif event.type ==pygame.KEYDOWN:
@@ -76,7 +79,7 @@ class AlienInvasion:
             elif event.key == pygame.K_LEFT:
                 self.ship.moving_left = True
             elif event.key == pygame.K_q:
-                sys.quit()
+                sys.exit()
             elif event.key == pygame.K_SPACE:
                 self._fire_bullet()
 
@@ -146,9 +149,6 @@ class AlienInvasion:
             bullet.draw_bullet()
         self.aliens.draw(self.screen)
         self.ship.blitme()
-        for bullet in self.bullets.sprites():
-            bullet.draw_bullet()
-        self.aliens.draw(self.screen)
         pygame.display.flip()
     def _ship_hit(self):
         """Respind to ship being hit by an alien"""
